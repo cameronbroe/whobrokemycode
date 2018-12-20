@@ -59,5 +59,7 @@ $ whobrokemycode -c 10 broken_code.py 10"
         lower_line=1 # at least 1 for lower_line
     fi
 
-    git blame ${file_check} -L ${lower_line},${upper_line} | grep --color -E ".*${line_number}.*" -C ${count}
+    regex="^.*?\d{4}-\d\d-\d\d \d\d:\d\d:\d\d [-+]?[0-9]{4} ${line_number}\) .*$"
+
+    git blame ${file_check} -L ${lower_line},${upper_line} | grep --color -E ${regex} -C ${count}
 }
